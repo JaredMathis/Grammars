@@ -26,7 +26,7 @@ export async function sandbox() {
 }
 async function g_explore(start, rules, depth, for_each_depth_0) {
   if (depth === 0) {
-    await for_each_depth_0(depth);
+    await for_each_depth_0(start);
     return;
   }
   await m_js_for_each(rules, async (rule) => {
