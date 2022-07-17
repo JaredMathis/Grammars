@@ -24,6 +24,9 @@ const rule = {
   right: ["a", "a"]
 };
 let test_cases = [{
+  input: [["a"], rule, 0],
+  output: ["a", "a"]
+},{
   input: [["a", "b"], rule, 0],
   output: ["a", "a", "b"]
 }, {
