@@ -1,3 +1,4 @@
+import {g_rule_apply} from "./../apply.mjs";
 import {m_js_equals_json} from "./../../../../node_modules/mykro/src/m/js/equals/json.mjs";
 import {m_js_assert} from "./../../../../node_modules/mykro/src/m/js/assert.mjs";
 import {list_size} from "./../../../../node_modules/mykro/src/list/size.mjs";
@@ -11,13 +12,7 @@ import {list_add} from "mykro/src/list/add.mjs";
 export async function g_rule_apply_get(input, rule) {
   await m_js_arguments_assert(list_is, g_rule_is)(arguments);
   let results = [];
-  await m_js_for_each(await list_range(await list_size(input)), async index => {
-    try {
-      let result = await g_rule_apply_at(input, rule, index);
-      await list_add(results, result);
-      return true;
-    } catch (e) {}
-  });
+  await g_rule_apply(input, rule, async applied => await list_add(results, applied));
   return results;
 }
 const rule = {
