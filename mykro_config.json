@@ -2,7 +2,10 @@
   "path": {
     "src": {
       "mykro": "./node_modules/mykro/src",
-      "other": ["src"]
+      "other": [
+        "src"
+      ],
+      "working": "./src"
     }
   },
   "auto": {
