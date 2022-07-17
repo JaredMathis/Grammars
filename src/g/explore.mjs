@@ -9,7 +9,6 @@ export async function g_explore(start, rules, depth, for_each_depth_0) {
   }
   await m_js_for_each(rules, async rule => {
     await g_rule_apply(start, rule, async applied => {
-      console.log({rule, applied})
       await g_explore(applied, rules, depth - 1, for_each_depth_0);
     });
   });
