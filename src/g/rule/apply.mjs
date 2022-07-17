@@ -6,9 +6,8 @@ export async function g_rule_apply(input, rule, index) {
   await m_js_arguments_assert(m_js_string_is, g_rule_is, m_js_number_is)(arguments);
 
   let {left} = rule;
-  m_js_string_listify(l => {
-    let offset = list_starting_at(l, index);
-    list_take(offset, left.length);
+  await m_js_string_listify(async l => {
+    let offset = await list_starting_at(l, index);
+    await list_take(offset, left.length);
   })
-  rule.left
 }
