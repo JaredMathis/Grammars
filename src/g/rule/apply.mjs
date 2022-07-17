@@ -18,7 +18,8 @@ export async function g_rule_apply(input, rule, index) {
   let replacement_right = await list_starting_at(input, index + await list_size(rule_left));
   return await list_join([replacement_left, rule_right, replacement_right]);
 }
-await m_js_assert(m_js_equals_json)(await g_rule_apply(["a", "b", "b"], {
+const rule = {
   left: ["a"],
   right: ["a", "a"]
-}, 0), ["a", "a", "b", "b"]);
+};
+await m_js_assert(m_js_equals_json)(await g_rule_apply(["a", "b", "b"], rule, 0), ["a", "a", "b", "b"]);
