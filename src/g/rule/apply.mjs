@@ -1,3 +1,4 @@
+import {g_rule_is} from "./is.mjs";
 import {m_js_number_is} from "./../../../node_modules/mykro/src/m/js/number/is.mjs";
 import {m_js_string_is} from "./../../../node_modules/mykro/src/m/js/string/is.mjs";
 import {m_js_arguments_assert} from "./../../../node_modules/mykro/src/m/js/arguments/assert.mjs";
