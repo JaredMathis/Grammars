@@ -21,6 +21,7 @@ export async function sandbox() {
   let start = ["a"];
 
   await m_js_for_each(rules, async rule => {
-    // g_rule_apply()
+    let applies = await g_rule_apply(start, rule);
+    console.log(applies)
   })
 }
