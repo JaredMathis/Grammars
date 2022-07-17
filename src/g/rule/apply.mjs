@@ -7,21 +7,18 @@ import {list_is} from "./../../../node_modules/mykro/src/list/is.mjs";
 import {m_js_arguments_assert} from "./../../../node_modules/mykro/src/m/js/arguments/assert.mjs";
 import {m_js_for_each} from "./../../../node_modules/mykro/src/m/js/for/each.mjs";
 import {g_rule_apply_at} from "./apply/at.mjs";
+import { list_add } from "mykro/src/list/add.mjs";
 export async function g_rule_apply(input, rule) {
   await m_js_arguments_assert(list_is, g_rule_is)(arguments);
-  let success = false;
-  let result;
+  let results = [];
   await m_js_for_each(await list_range(await list_size(input)), async index => {
     try {
-      result = await g_rule_apply_at(input, rule, index);
-      success = true;
+      let result = await g_rule_apply_at(input, rule, index);
+      await list_add(results, result);
       return true;
     } catch (e) {}
   });
-  return {
-    success,
-    result
-  };
+  return results;
 }
 const rule = {
   left: ["a"],
@@ -29,23 +26,23 @@ const rule = {
 };
 let test_cases = [{
   input: [["a"], rule],
-  output: ["a", "a"]
+  output: [["a", "a"]]
 }, {
   input: [["a", "b"], rule],
-  output: ["a", "a", "b"]
+  output: [["a", "a", "b"]]
 }, {
   input: [["a", "b", "b"], rule],
-  output: ["a", "a", "b", "b"]
+  output: [["a", "a", "b", "b"]]
 }, {
   input: [["a", "b", "c"], rule],
-  output: ["a", "a", "b", "c"]
+  output: [["a", "a", "b", "c"]]
 }, {
   input: [["d", "a", "b", "c"], rule],
-  output: ["d", "a", "a", "b", "c"]
+  output: [["d", "a", "a", "b", "c"]]
 }, {
   input: [["d", "e", "a"], rule],
-  output: ["d", "e", "a", "a"]
+  output: [["d", "e", "a", "a"]]
 }];
 await m_js_for_each(test_cases, async test_case => {
-  await m_js_assert(m_js_equals_json)((await g_rule_apply(...test_case.input)).result, test_case.output);
+  await m_js_assert(m_js_equals_json)((await g_rule_apply(...test_case.input)), test_case.output);
 });
