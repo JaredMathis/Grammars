@@ -44,5 +44,5 @@ let test_cases = [{
   output: ["d", "a", "a", "b", "c"]
 }];
 await m_js_for_each(test_cases, async test_case => {
-  await m_js_assert(m_js_equals_json)(await g_rule_apply(...test_case.input), test_case.output);
+  await m_js_assert(m_js_equals_json)((await g_rule_apply(...test_case.input)).result, test_case.output);
 });
