@@ -15,7 +15,7 @@ export async function sandbox() {
     left: ["a"],
     right: ["0"]
   }];
-  let depth = 0;
+  let depth = 2;
   let start = ["a"];
   await g_explore(start, rules, depth);
 }
