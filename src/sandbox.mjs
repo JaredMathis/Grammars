@@ -20,9 +20,13 @@ export async function sandbox() {
   await m_js_for_each(rules, async rule => {
     let applies = await g_rule_apply(start, rule);
     await m_js_for_each(applies, async applied => {
-      await list_add(rules, rule);
+      let rule_new = {
+        left: start,
+        right: applied
+      };
+      await list_add(rules, rule_new);
       console.log(rules);
-      await list_remove(rules, rule);
+      await list_remove(rules, rule_new);
     });
   });
 }
