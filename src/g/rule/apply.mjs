@@ -13,7 +13,7 @@ import {m_js_string_to_list} from "./../../../node_modules/mykro/src/m/js/string
 export async function g_rule_apply(input, rule, index) {
   await m_js_arguments_assert(m_js_string_is, g_rule_is, m_js_number_is)(arguments);
   let {left: rule_left, right: rule_right} = rule;
-  await m_js_string_listify(async l => {
+  await m_js_string_listify(input, async l => {
     let offset = await list_starting_at(l, index);
     let replaced = await list_take(offset, rule_left.length);
     await m_js_assert(m_js_equals)(replaced, rule_left);
