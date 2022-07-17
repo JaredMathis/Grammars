@@ -20,6 +20,7 @@ export async function sandbox() {
   await g_explore(start, rules, depth);
 }
 async function g_explore(start, rules, depth) {
+  console.log(start)
   if (depth === 0) {
     return;
   }
