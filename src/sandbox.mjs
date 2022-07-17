@@ -1,3 +1,4 @@
+import {g_explore} from "./g/explore.mjs";
 import {list_remove} from "./../node_modules/mykro/src/list/remove.mjs";
 import {list_add} from "./../node_modules/mykro/src/list/add.mjs";
 import {g_rule_apply_at} from "./g/rule/apply/at.mjs";
@@ -20,20 +21,7 @@ export async function sandbox() {
   await g_explore(start, rules, depth, async explored => {
     console.log({
       left: start,
-      right: explored,
-    })
-  });
-}
-async function g_explore(start, rules, depth, for_each_depth_0) {
-  if (depth === 0) {
-    await for_each_depth_0(start);
-    return;
-  }
-  await m_js_for_each(rules, async (rule) => {
-    let applies = await g_rule_apply(start, rule);
-    await m_js_for_each(applies, async (applied) => {
-      await g_explore(applied, rules, depth - 1, for_each_depth_0)
+      right: explored
     });
   });
 }
-
