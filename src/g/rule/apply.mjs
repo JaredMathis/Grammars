@@ -35,6 +35,9 @@ let test_cases = [{
 }, {
   input: [["a", "b", "c"], rule, 0],
   output: ["a", "a", "b", "c"]
+}, {
+  input: [["d", "a", "b", "c"], rule, 1],
+  output: ["d", "a", "a", "b", "c"]
 }];
 await m_js_for_each(test_cases, async test_case => {
   await m_js_assert(m_js_equals_json)(await g_rule_apply(...test_case.input), test_case.output);
