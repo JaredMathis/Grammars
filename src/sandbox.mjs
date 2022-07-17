@@ -11,10 +11,10 @@ export async function sandbox() {
     right: ["a", "a"]
   }, {
     left: ["a"],
-    right: ["1"]
+    right: ["b"]
   }, {
     left: ["a"],
-    right: ["0"]
+    right: ["c"]
   }];
   let depth = 2;
   let start = ["a"];
