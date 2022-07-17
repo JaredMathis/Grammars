@@ -15,13 +15,11 @@ import {m_js_string_to_list} from "./../../../node_modules/mykro/src/m/js/string
 export async function g_rule_apply(input, rule, index) {
   await m_js_arguments_assert(list_is, g_rule_is, m_js_number_is)(arguments);
   let {left: rule_left, right: rule_right} = rule;
-  await m_js_string_listify(input, async l => {
-    let offset = await list_starting_at(l, index);
-    let replaced = await list_take(offset, rule_left.length);
-    await m_js_assert(m_js_equals_json)(replaced, rule_left);
-    let replacement_left = await list_take(l, index);
-    let replacement_right = await list_starting_at(l, index + await m_js_string_size(rule_left));
-    let replacement = await m_js_string_to_list(rule_right);
-    return await list_join([replacement_left, replacement, replacement_right]);
-  });
+  let offset = await list_starting_at(input, index);
+  let replaced = await list_take(offset, rule_left.length);
+  await m_js_assert(m_js_equals_json)(replaced, rule_left);
+  let replacement_left = await list_take(l, index);
+  let replacement_right = await list_starting_at(l, index + await m_js_string_size(rule_left));
+  let replacement = await m_js_string_to_list(rule_right);
+  return await list_join([replacement_left, replacement, replacement_right]);
 }
