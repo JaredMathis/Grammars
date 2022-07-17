@@ -1,3 +1,4 @@
+import {m_js_equals_json} from "./../../../node_modules/mykro/src/m/js/equals/json.mjs";
 import {list_join} from "./../../../node_modules/mykro/src/list/join.mjs";
 import {m_js_string_size} from "./../../../node_modules/mykro/src/m/js/string/size.mjs";
 import {list_take} from "./../../../node_modules/mykro/src/list/take.mjs";
@@ -16,7 +17,7 @@ export async function g_rule_apply(input, rule, index) {
   await m_js_string_listify(input, async l => {
     let offset = await list_starting_at(l, index);
     let replaced = await list_take(offset, rule_left.length);
-    await m_js_assert(m_js_equals)(replaced, rule_left);
+    await m_js_assert(m_js_equals_json)(replaced, rule_left);
     let replacement_left = await list_take(l, index);
     let replacement_right = await list_starting_at(l, index + await m_js_string_size(rule_left));
     let replacement = await m_js_string_to_list(rule_right);
