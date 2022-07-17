@@ -4,9 +4,9 @@ export async function sandbox() {
   await m_js_arguments_assert()(arguments);
   let rule = {
     left: ["a"],
-    right: ["aa"]
+    right: ["a", "a"]
   };
-  let input = "abb";
+  let input = ["a", "b", "b"];
   let result = await g_rule_apply(input, rule, 0);
   console.log(result);
 }
