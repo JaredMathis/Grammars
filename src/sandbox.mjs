@@ -31,9 +31,7 @@ async function g_explore(start, rules, depth) {
         left: start,
         right: applied
       };
-      await list_add(rules, rule_new);
       await g_explore(applied, rules, depth - 1)
-      await list_remove(rules, rule_new);
     });
   });
 }
