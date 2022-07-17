@@ -17,16 +17,23 @@ export async function sandbox() {
   }];
   let depth = 0;
   let start = ["a"];
-  await m_js_for_each(rules, async rule => {
+  await g_explore(start, rules, depth);
+}
+async function g_explore(start, rules, depth) {
+  if (depth === 0) {
+    return;
+  }
+  await m_js_for_each(rules, async (rule) => {
     let applies = await g_rule_apply(start, rule);
-    await m_js_for_each(applies, async applied => {
+    await m_js_for_each(applies, async (applied) => {
       let rule_new = {
         left: start,
         right: applied
       };
       await list_add(rules, rule_new);
-      console.log(rules);
+      await g_explore(start, rules, depth - 1)
       await list_remove(rules, rule_new);
     });
   });
 }
+
