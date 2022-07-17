@@ -1,4 +1,4 @@
-import {g_rule_apply} from "./g/rule/apply.mjs";
+import {g_rule_apply_at} from "./g/rule/apply/at.mjs";
 import {m_js_arguments_assert} from "./../node_modules/mykro/src/m/js/arguments/assert.mjs";
 export async function sandbox() {
   await m_js_arguments_assert()(arguments);
@@ -7,6 +7,6 @@ export async function sandbox() {
     right: ["a", "a"]
   };
   let input = ["a", "b", "b"];
-  let result = await g_rule_apply(input, rule, 0);
+  let result = await g_rule_apply_at(input, rule, 0);
   console.log(result);
 }
