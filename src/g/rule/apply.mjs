@@ -18,8 +18,8 @@ export async function g_rule_apply(input, rule, index) {
   let offset = await list_starting_at(input, index);
   let replaced = await list_take(offset, rule_left.length);
   await m_js_assert(m_js_equals_json)(replaced, rule_left);
-  let replacement_left = await list_take(l, index);
-  let replacement_right = await list_starting_at(l, index + await m_js_string_size(rule_left));
+  let replacement_left = await list_take(input, index);
+  let replacement_right = await list_starting_at(input, index + await m_js_string_size(rule_left));
   let replacement = await m_js_string_to_list(rule_right);
   return await list_join([replacement_left, replacement, replacement_right]);
 }
