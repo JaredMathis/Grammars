@@ -11,7 +11,7 @@ export async function g_rule_apply(input, rule, for_each_apply) {
   await m_js_for_each(await list_range(await list_size(input)), async index => {
     try {
       let result = await g_rule_apply_at(input, rule, index);
-      for_each_apply(result);
+      await for_each_apply(result);
     } catch (e) {}
   });
 }
