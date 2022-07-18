@@ -12,7 +12,7 @@ import {m_js_arguments_assert} from "./../../../node_modules/mykro/src/m/js/argu
 import {list_join} from "./../../../node_modules/mykro/src/list/join.mjs";
 import {g_letters_to_number} from "./../letters/to/number.mjs";
 export async function g_generate_rules(rules, for_each_generated) {
-  await math_choose_duplicates([1,2],1,c => console.log(c), []);
+  await math_choose_duplicates([1,2],2,c => console.log(c), []);
   return
   await m_js_arguments_assert(list_is, m_js_function_is)(arguments);
   let symbols = await list_unique(await list_join(await list_map(await rules, async rule => await list_join([rule.left, rule.right]))));
