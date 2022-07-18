@@ -7,7 +7,10 @@ import {m_js_arguments_assert} from "./../node_modules/mykro/src/m/js/arguments/
 import {g_rule_apply_get} from "./g/rule/apply/get.mjs";
 import {m_js_for_each} from "mykro/src/m/js/for/each.mjs";
 import { g_letters_to_number } from "./g/letters/to/number.mjs";
+import { g_letters_from_number } from "./g/letters/from/number.mjs";
 export async function sandbox() {
+  console.log(await g_letters_from_number(1));
+  return
   await g_generate_rules([{
     left: ["a"],
     right: ["b"]
