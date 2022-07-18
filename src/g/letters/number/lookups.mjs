@@ -27,9 +27,4 @@ export async function g_letters_number_lookups() {
     to_letter
   };
 }
-async function constant_letters_sorted() {
-  let letters = await constant_alphabet();
-  let letters_as_list = await m_js_string_to_list(letters);
-  letters_as_list.sort();
-  return letters_as_list;
-}
+
