@@ -15,30 +15,10 @@ import {list_where} from "mykro/src/list/where.mjs";
 import {list_size} from "mykro/src/list/size.mjs";
 export async function sandbox() {
   Error.stackTraceLimit = Infinity
-  await g_generate_rules_depth([{
-    left: ["a"],
-    right: ["a"]
-  }], 2, async rules => {
-    return;
-    let examples = [["b"], ["b", "b"]];
-    let counter_examples = [["c"], ["b", "c"], ["c", "b"], ["c", "c"]];
-    let counter_example_found = false;
-    await g_explore(["a"], rules, 3, async found => {
-      let matches_examples = await list_where(examples, async e => await m_js_equals_json(found, e));
-      await m_js_for_each(matches_examples, async e => {
-        await list_remove(examples, e);
-      });
-      let matches_counter = await list_where(counter_examples, async e => await m_js_equals_json(found, e));
-      if (await list_size(matches_counter) >= 1) {
-        counter_example_found = true;
-      }
-    });
-    if (!counter_example_found) {
-      if (await list_size(examples) === 0) {
-        console.log(rules);
-        process.exit();
-      }
-    }
+  let examples_get = () => [["b"], ["b", "b"]];
+  let counter_examples = [["c"], ["b", "c"], ["c", "b"], ["c", "c"]];
+  await g_models(examples_get, counter_examples, rules => {
+    console.log(rules)
   });
   return;
   let rules = [{
@@ -60,3 +40,28 @@ export async function sandbox() {
     });
   });
 }
+async function g_models(examples_get, counter_examples, for_each_model) {
+  await g_generate_rules_depth([{
+    left: ["a"],
+    right: ["a"]
+  }], 2, async (rules) => {
+    let examples = examples_get();
+    let counter_example_found = false;
+    await g_explore(["a"], rules, 3, async (found) => {
+      let matches_examples = await list_where(examples, async (e) => await m_js_equals_json(found, e));
+      await m_js_for_each(matches_examples, async (e) => {
+        await list_remove(examples, e);
+      });
+      let matches_counter = await list_where(counter_examples, async (e) => await m_js_equals_json(found, e));
+      if (await list_size(matches_counter) >= 1) {
+        counter_example_found = true;
+      }
+    });
+    if (!counter_example_found) {
+      if ((await list_size(examples)) === 0) {
+        for_each_model(rules);
+      }
+    }
+  });
+}
+

@@ -6,7 +6,7 @@ import {m_js_arguments_assert} from "./../../../../node_modules/mykro/src/m/js/a
 export async function g_generate_rules_depth(rules, depth, for_each_generated) {
   await m_js_arguments_assert(list_is, m_js_number_is, m_js_function_is)(arguments);
   if (depth === 0) {
-    for_each_generated(rules);
+    await for_each_generated(rules);
     return;
   }
   await g_generate_rules(rules, async rules => {
