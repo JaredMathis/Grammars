@@ -1,3 +1,5 @@
+import {list_without} from "./../../../node_modules/mykro/src/list/without.mjs";
+import {m_js_for_each} from "./../../../node_modules/mykro/src/m/js/for/each.mjs";
 import {list_take} from "./../../../node_modules/mykro/src/list/take.mjs";
 import {list_map} from "./../../../node_modules/mykro/src/list/map.mjs";
 import {list_unique} from "./../../../node_modules/mykro/src/list/unique.mjs";
@@ -37,4 +39,13 @@ export async function g_generate_rules(rules, for_each_generated) {
     await for_each_generated(rules);
     await list_remove(rules, rule);
   }
+}
+async function math_choose(possible_symbols, choices_count, for_each_choice, parent_choice) {
+  if (choices_count === 0) {
+    await for_each_choice(parent_choice);
+  }
+  await m_js_for_each(possible_symbols, async s => {
+    possible_symbols_remaining = await list_without(possible_symbols, s);
+    await math_choose(possible_symbols_remaining, choices_count - 1, for_each_choice, await list_join([parent_choice, s]));
+  });
 }
