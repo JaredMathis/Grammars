@@ -4,8 +4,14 @@ import {m_js_string_is} from "./../../../../node_modules/mykro/src/m/js/string/i
 import {m_js_arguments_assert} from "./../../../../node_modules/mykro/src/m/js/arguments/assert.mjs";
 export async function g_letters_to_number(s) {
   await m_js_arguments_assert(m_js_string_is)(arguments);
+  let letters_as_list = await constant_letters_sorted();
+
+  console.log(letters_as_list);
+}
+async function constant_letters_sorted() {
   let letters = await constant_alphabet();
   let letters_as_list = await m_js_string_to_list(letters);
   letters_as_list.sort();
-  console.log(letters_as_list);
+  return letters_as_list;
 }
+
