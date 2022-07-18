@@ -7,7 +7,16 @@ import {m_js_arguments_assert} from "./../node_modules/mykro/src/m/js/arguments/
 import {g_rule_apply_get} from "./g/rule/apply/get.mjs";
 import {m_js_for_each} from "mykro/src/m/js/for/each.mjs";
 export async function sandbox() {
-  await g_generate_rules(3, result => console.log(result));
+  await g_generate_rules([{
+    left: ["a"],
+    right: ["a", "a"]
+  }, {
+    left: ["a"],
+    right: ["b"]
+  }, {
+    left: ["a"],
+    right: ["c"]
+  }], result => console.log(result));
   return;
   let rules = [{
     left: ["a"],
