@@ -17,7 +17,7 @@ export async function sandbox() {
   await g_generate_rules_depth([{
     left: ["a"],
     right: ["a"]
-  }], 0, async rules => {
+  }], 1, async rules => {
     console.log(rules);
     return;
     let examples = [["b"], ["b", "b"]];
