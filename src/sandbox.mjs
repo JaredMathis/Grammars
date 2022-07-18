@@ -8,14 +8,31 @@ import {g_rule_apply_get} from "./g/rule/apply/get.mjs";
 import {m_js_for_each} from "mykro/src/m/js/for/each.mjs";
 import { g_letters_to_number } from "./g/letters/to/number.mjs";
 import { g_letters_from_number } from "./g/letters/from/number.mjs";
+import { list_index_of } from "mykro/src/list/index/of.mjs";
 export async function sandbox() {
   console.log(await g_letters_from_number(27));
 
   await g_generate_rules([{
     left: ["a"],
     right: ["a"]
-  }], async result => {
-    await g_generate_rules(result, result => {
+  }], async rules => {
+    await g_generate_rules(rules, async rules => {
+      let examples = [
+        "b",
+        "bb",
+      ]
+      let counter_examples = [
+        "c",
+        "bc",
+        "cb",
+        "cc"
+      ]
+      await g_explore(["a"], rules, 3, async found => {
+        if (await m_js_equals_json(found, ["b"])) {
+          console.log(found);
+          process.exit()
+        }
+      })
     })
   });
   return;
