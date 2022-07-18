@@ -1,3 +1,4 @@
+import {m_js_for_range} from "./../node_modules/mykro/src/m/js/for/range.mjs";
 import {g_generate_rules_depth} from "./g/generate/rules/depth.mjs";
 import {m_js_equals_json} from "./../node_modules/mykro/src/m/js/equals/json.mjs";
 import {g_generate_rules} from "./g/generate/rules.mjs";
@@ -14,20 +15,23 @@ import {list_index_of} from "./../node_modules/mykro/src/list/index/of.mjs";
 import {list_where} from "./../node_modules/mykro/src/list/where.mjs";
 import {list_size} from "./../node_modules/mykro/src/list/size.mjs";
 import {m_js_comment} from "./../node_modules/mykro/src/m/js/comment.mjs";
+import {g_symbols_max} from "./g/symbols/max.mjs";
 export async function sandbox() {
   Error.stackTraceLimit = Infinity;
   await g_generate_rules_depth([], 1, async rules => {
     if (await list_size(rules) === 1) {
-      if (!await m_js_equals_json(rules[0].left, ['a'])) {
+      if (!await m_js_equals_json(rules[0].left, ["a"])) {
         return true;
       }
+      let max = await g_symbols_max(rules);
+      await m_js_for_range(max, i => {
+        i++;
+      });
     }
-  },
-  async rules => {
+  }, async rules => {
     console.log(rules);
   });
   return;
-
   await m_js_comment(`all b's
   [
     { left: [ 'a' ], right: [ 'b' ] },
@@ -75,7 +79,7 @@ export async function sandbox() {
   let _case = case4;
   await g_models(_case.examples_get, _case.counter_examples, 3, 3, rules => {
     console.log(rules);
-    process.exit()
+    process.exit();
   });
 }
 async function g_models(examples_get, counter_examples, rules_depth, explore_depth, for_each_model) {

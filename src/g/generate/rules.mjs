@@ -12,6 +12,7 @@ import {list_is} from "./../../../node_modules/mykro/src/list/is.mjs";
 import {m_js_arguments_assert} from "./../../../node_modules/mykro/src/m/js/arguments/assert.mjs";
 import {list_join} from "./../../../node_modules/mykro/src/list/join.mjs";
 import {g_letters_to_number} from "./../letters/to/number.mjs";
+import { g_symbols_max } from "../symbols/max.mjs";
 export async function g_generate_rules(rules, for_each_generated) {
   await m_js_arguments_assert(list_is, m_js_function_is)(arguments);
   let { max, symbols } = await g_symbols_max(rules);
@@ -40,15 +41,6 @@ export async function g_generate_rules(rules, for_each_generated) {
     await for_each_generated(rules);
     await list_remove(rules, rule);
   }
-}
-async function g_symbols_max(rules) {
-  let symbols = await list_unique(await list_join(await list_map(await rules, async (rule) => await list_join([rule.left, rule.right]))));
-  if (await list_size(symbols) === 0) {
-    symbols = ["a"];
-  }
-  let symbols_mapped = await list_map(symbols, async (s) => await g_letters_to_number(s));
-  let max = Math.max(...symbols_mapped, 0);
-  return { max, symbols };
 }
 
 async function math_choose(possible_symbols, choices_count, for_each_choice, parent_choice) {
