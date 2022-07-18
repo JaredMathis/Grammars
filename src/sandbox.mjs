@@ -28,6 +28,7 @@ export async function sandbox() {
         return true;
       }
       let {max} = await g_symbols_max(rules);
+      console.log({max, rules})
       let skip = false;
       await m_js_for_range(max, async i => {
         i++;
