@@ -1,0 +1,64 @@
+I wrote a artificial intelligence computer program
+
+You give it examples and and counter-examples and it gives you a set of rules that generates all the examples, and none of the counter-examples.
+
+It uses grammar rules, which you can use to write any computer program.
+
+For example, I gave it this (all b's, no c's):
+
+    examples_get: () => [["b"], ["b", "b"]],
+    counter_examples: [["c"], ["b", "c"], ["c", "b"], ["c", "c"]]
+
+And it gave me these rules:
+  [
+    { left: [ 'a' ], right: [ 'b' ] },
+    { left: [ 'a' ], right: [ 'a', 'a' ] }
+  ]
+
+I gave it examples that all start with b.
+    examples_get: () => [["b"], ["b", "c"], ["b", "b"]],
+    counter_examples: [["c"], ["c", "b"], ["c", "c"]]
+
+And it gave me these rules
+  [
+    { left: [ 'a' ], right: [ 'b' ] },
+    { left: [ 'c' ], right: [ 'a' ] },
+    { left: [ 'a' ], right: [ 'b', 'c' ] }
+  ]
+
+I gave it examples that end with b
+    examples_get: () => [["b"], ["c", "b"], ["b", "b"]],
+    counter_examples: [["c"], ["b", "c"], ["c", "c"]]
+
+And it gave me these rules
+  [
+    { left: [ 'a' ], right: [ 'b' ] },
+    { left: [ 'c' ], right: [ 'a' ] },
+    { left: [ 'a' ], right: [ 'c', 'b' ] }
+  ]
+
+
+I gave it all simple combinations of b and c
+    examples_get: () => [["b"], ["c", "b"], ["b", "b"], ["c"], ["b", "c"], ["c", "c"]],
+    counter_examples: []
+
+And it gave me these rules
+  [
+    { left: [ 'a' ], right: [ 'b' ] },
+    { left: [ 'a' ], right: [ 'c' ] },
+    { left: [ 'a' ], right: [ 'a', 'a' ] }
+  ]
+
+
+A replacement rule says "replace this sequence of symbols with that sequence of symbols"
+
+It's like "find and replace" in a document editor
+
+For example:
+
+A -> A A
+
+Means "if you see an 'A', you can replace it with two 'A's"
+
+So if you have "A A A", then you can replace one of the 'A's with two 'A's to get "A A A A"
+

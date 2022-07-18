@@ -16,6 +16,10 @@ import {list_size} from "./../node_modules/mykro/src/list/size.mjs";
 import {m_js_comment} from "./../node_modules/mykro/src/m/js/comment.mjs";
 export async function sandbox() {
   Error.stackTraceLimit = Infinity;
+
+  await g_generate_rules_depth(rules, 2, async rules => console.log(rules));
+  return;
+
   await m_js_comment(`all b's
   [
     { left: [ 'a' ], right: [ 'b' ] },
@@ -65,31 +69,9 @@ export async function sandbox() {
     console.log(rules);
     process.exit()
   });
-  return;
-  let rules = [{
-    left: ["a"],
-    right: ["a", "a"]
-  }, {
-    left: ["a"],
-    right: ["b"]
-  }, {
-    left: ["a"],
-    right: ["c"]
-  }];
-  let depth = 2;
-  let start = ["a"];
-  await g_explore(start, rules, depth, async explored => {
-    console.log({
-      left: start,
-      right: explored
-    });
-  });
 }
 async function g_models(examples_get, counter_examples, rules_depth, explore_depth, for_each_model) {
-  await g_generate_rules_depth([{
-    left: ["a"],
-    right: ["a"]
-  }], rules_depth, async rules => {
+  await g_generate_rules_depth([], rules_depth, async rules => {
     let examples = examples_get();
     let counter_example_found = false;
     await g_explore(["a"], rules, explore_depth, async found => {
