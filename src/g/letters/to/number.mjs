@@ -1,3 +1,4 @@
+import {constant_numbers} from "./../../../../node_modules/mykro/src/constant/numbers.mjs";
 import {m_js_string_to_list} from "./../../../../node_modules/mykro/src/m/js/string/to/list.mjs";
 import {constant_alphabet} from "./../../../../node_modules/mykro/src/constant/alphabet.mjs";
 import {m_js_string_is} from "./../../../../node_modules/mykro/src/m/js/string/is.mjs";
@@ -5,7 +6,8 @@ import {m_js_arguments_assert} from "./../../../../node_modules/mykro/src/m/js/a
 export async function g_letters_to_number(s) {
   await m_js_arguments_assert(m_js_string_is)(arguments);
   let letters_as_list = await constant_letters_sorted();
-
+  let numbers = await constant_numbers();
+  console.log(numbers);
   console.log(letters_as_list);
 }
 async function constant_letters_sorted() {
@@ -14,4 +16,3 @@ async function constant_letters_sorted() {
   letters_as_list.sort();
   return letters_as_list;
 }
-
