@@ -26,6 +26,7 @@ export async function g_letters_to_number(s) {
   let mapped = await list_map(s_as_list, letter => {
     return a[letter];
   });
+  console.log(s_as_list);
   console.log(mapped);
   parseInt();
 }
