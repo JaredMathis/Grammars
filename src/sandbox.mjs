@@ -8,7 +8,7 @@ import {g_rule_apply_get} from "./g/rule/apply/get.mjs";
 import {m_js_for_each} from "mykro/src/m/js/for/each.mjs";
 import { g_letters_to_number } from "./g/letters/to/number.mjs";
 export async function sandbox() {
-  console.log(await g_letters_to_number("az"))
+  console.log(await g_letters_to_number("aa"))
   await g_generate_rules([{
     left: ["a"],
     right: ["a", "a"]
