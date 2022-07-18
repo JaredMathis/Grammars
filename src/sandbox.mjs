@@ -7,6 +7,8 @@ import {g_rule_apply_get} from "./g/rule/apply/get.mjs";
 import {m_js_for_each} from "mykro/src/m/js/for/each.mjs";
 import { g_generate_side } from "./g/generate/side.mjs";
 export async function sandbox() {
+  await g_generate_side(1, result => console.log(result))
+  return;
   let rules = [{
     left: ["a"],
     right: ["a", "a"]
@@ -26,5 +28,4 @@ export async function sandbox() {
     });
   });
 
-  await g_generate_side(1, result => console.log(result))
 }
