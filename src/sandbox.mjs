@@ -36,7 +36,7 @@ export async function sandbox() {
         if (!await list_where(symbols, async s => await m_js_equals_json(symbol, s))) {
           skip = true;
         }
-        console.log({symbols})
+        console.log({symbols, symbol})
       });
       if (skip) return skip;
     }
