@@ -8,6 +8,6 @@ export async function g_generate_side(rows, for_each_generated) {
   await m_js_for_range(rows, async row => {
     let result = {};
     result.pair = [++symbol + "", ++symbol + ""];
-    for_each_generated(result);
+    await for_each_generated(result);
   });
 }

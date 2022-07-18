@@ -5,6 +5,7 @@ import {g_rule_apply_at} from "./g/rule/apply/at.mjs";
 import {m_js_arguments_assert} from "./../node_modules/mykro/src/m/js/arguments/assert.mjs";
 import {g_rule_apply_get} from "./g/rule/apply/get.mjs";
 import {m_js_for_each} from "mykro/src/m/js/for/each.mjs";
+import { g_generate_side } from "./g/generate/side.mjs";
 export async function sandbox() {
   let rules = [{
     left: ["a"],
@@ -24,4 +25,6 @@ export async function sandbox() {
       right: explored
     });
   });
+
+  await g_generate_side(1, result => console.log(result))
 }
