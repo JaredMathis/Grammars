@@ -26,6 +26,7 @@ export async function sandbox() {
         "cc"
       ]
       await g_explore(["a"], rules, 3, async found => {
+        console.log(found)
         if (await m_js_equals_json(found, ["b"])) {
           console.log(found);
           process.exit()
