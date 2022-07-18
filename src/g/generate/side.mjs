@@ -13,5 +13,5 @@ export async function g_generate_side(rows, for_each_generated) {
     await list_add(results, result);
   });
   await m_js_for_range(rows * 2, async s => {});
-  await for_each_generated(result);
+  await for_each_generated(results);
 }
