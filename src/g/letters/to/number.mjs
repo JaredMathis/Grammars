@@ -7,7 +7,7 @@ export async function g_letters_to_number(s) {
   await m_js_arguments_assert(m_js_string_is)(arguments);
   let {from_letter} = await g_letters_number_lookups();
   let mapped_as_string = await m_js_string_listify(s, async l => {
-    await list_map(l, async letter => {
+    return await list_map(l, async letter => {
       return from_letter[letter];
     });
   });

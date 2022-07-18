@@ -10,7 +10,7 @@ export async function g_letters_from_number(n) {
   let {to_letter} = await g_letters_number_lookups();
   let a = n.toString(await list_size(await constant_alphabet()));
   let result = await m_js_string_listify(s, async l => {
-    await list_map(l, async letter => {
+    return await list_map(l, async letter => {
       return to_letter[letter];
     });
   });
