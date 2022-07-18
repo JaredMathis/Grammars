@@ -28,7 +28,6 @@ export async function sandbox() {
         return true;
       }
       let {max} = await g_symbols_max(rules);
-      console.log({max, rules})
       let skip = false;
       await m_js_for_range(max, async i => {
         i++;
@@ -37,6 +36,7 @@ export async function sandbox() {
         if (!await list_where(symbols, async s => await m_js_equals_json(symbol, s))) {
           skip = true;
         }
+        console.log({symbols})
       });
       if (skip) return skip;
     }
