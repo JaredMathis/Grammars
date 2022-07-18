@@ -1,3 +1,4 @@
+import {list_join} from "./../../../../node_modules/mykro/src/list/join.mjs";
 import {list_size} from "./../../../../node_modules/mykro/src/list/size.mjs";
 import {list_index_last} from "./../../../../node_modules/mykro/src/list/index/last.mjs";
 import {list_take} from "./../../../../node_modules/mykro/src/list/take.mjs";
@@ -13,8 +14,8 @@ export async function g_letters_to_number(s) {
   let numbers_as_list = await m_js_string_to_list(numbers);
   let numbers_without_0 = await list_take(numbers_as_list, await list_index_last(numbers_as_list));
   let letters_without_last_10 = await list_take(letters_as_list, await list_size(letters_as_list) - await list_size(numbers_as_list));
-  console.log(numbers_without_0);
-  console.log(letters_without_last_10);
+  let target = await list_join([numbers_without_0, letters_without_last_10, ["0"]]);
+  console.log(target);
 }
 async function constant_letters_sorted() {
   let letters = await constant_alphabet();
