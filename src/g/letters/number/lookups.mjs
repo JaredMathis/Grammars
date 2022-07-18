@@ -27,4 +27,3 @@ export async function g_letters_number_lookups() {
     to_letter
   };
 }
-
