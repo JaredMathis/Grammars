@@ -19,8 +19,6 @@ export async function sandbox() {
     left: ["a"],
     right: ["a"]
   }], 2, async rules => {
-    console.log(rules.length);
-    console.log('here')
     return;
     let examples = [["b"], ["b", "b"]];
     let counter_examples = [["c"], ["b", "c"], ["c", "b"], ["c", "c"]];
