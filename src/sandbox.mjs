@@ -10,20 +10,33 @@ import {m_js_for_each} from "mykro/src/m/js/for/each.mjs";
 import {g_letters_to_number} from "./g/letters/to/number.mjs";
 import {g_letters_from_number} from "./g/letters/from/number.mjs";
 import {list_index_of} from "mykro/src/list/index/of.mjs";
+import {list_where} from "mykro/src/list/where.mjs";
+import {list_size} from "mykro/src/list/size.mjs";
 export async function sandbox() {
   await g_generate_rules([{
     left: ["a"],
     right: ["a"]
   }], async rules => {
     await g_generate_rules(rules, async rules => {
-      let examples = ["b", "bb"];
-      let counter_examples = ["c", "bc", "cb", "cc"];
+      let examples = [["b"], ["b", "b"]];
+      let counter_examples = [["c"], ["b", "c"], ["c", "b"], ["c", "c"]];
+      let counter_example_found = false;
       await g_explore(["a"], rules, 3, async found => {
-        if (await m_js_equals_json(found, ["b"])) {
-          console.log(found);
-          process.exit();
+        let matches_examples = await list_where(examples, async e => await m_js_equals_json(found, e));
+        await m_js_for_each(matches_examples, async e => {
+          await list_remove(examples, e);
+        });
+        let matches_counter = await list_where(counter_examples, async e => await m_js_equals_json(found, e));
+        if (await list_size(matches_counter) >= 1) {
+          counter_example_found = true;
         }
       });
+      if (!counter_example_found) {
+        if (await list_size(examples) === 0) {
+          console.log(rules);
+          process.exit();
+        }
+      }
     });
   });
   return;
