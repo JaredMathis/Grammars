@@ -16,9 +16,7 @@ import {list_size} from "./../node_modules/mykro/src/list/size.mjs";
 import {m_js_comment} from "./../node_modules/mykro/src/m/js/comment.mjs";
 export async function sandbox() {
   Error.stackTraceLimit = Infinity;
-  console.log('hesr')
   await g_generate_rules_depth([], 1, async rules => console.log(rules));
-  console.log('her')
   return;
 
   await m_js_comment(`all b's
