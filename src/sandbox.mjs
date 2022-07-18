@@ -18,6 +18,7 @@ export async function sandbox() {
   Error.stackTraceLimit = Infinity;
 
   await g_generate_rules_depth([], 2, async rules => console.log(rules));
+  console.log('her')
   return;
 
   await m_js_comment(`all b's
