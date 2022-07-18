@@ -1,8 +1,5 @@
 import {m_js_string_listify} from "./../../../../node_modules/mykro/src/m/js/string/listify.mjs";
 import {g_letters_number_lookups} from "./../number/lookups.mjs";
-import {m_js_string_from_list} from "./../../../../node_modules/mykro/src/m/js/string/from/list.mjs";
-import {list_map} from "./../../../../node_modules/mykro/src/list/map.mjs";
-import {m_js_string_to_list} from "./../../../../node_modules/mykro/src/m/js/string/to/list.mjs";
 import {m_js_string_is} from "./../../../../node_modules/mykro/src/m/js/string/is.mjs";
 import {m_js_arguments_assert} from "./../../../../node_modules/mykro/src/m/js/arguments/assert.mjs";
 export async function g_letters_to_number(s) {
