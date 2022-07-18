@@ -10,10 +10,14 @@ import { g_letters_to_number } from "./g/letters/to/number.mjs";
 import { g_letters_from_number } from "./g/letters/from/number.mjs";
 export async function sandbox() {
   console.log(await g_letters_from_number(27));
+
   await g_generate_rules([{
     left: ["a"],
     right: ["a"]
-  }], result => console.log(result));
+  }], async result => {
+    await g_generate_rules(result, result => {
+    })
+  });
   return;
   let rules = [{
     left: ["a"],
