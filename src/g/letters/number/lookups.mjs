@@ -1,5 +1,4 @@
 import {constant_alphabet_sorted} from "./../../../../node_modules/mykro/src/constant/alphabet/sorted.mjs";
-import {constant_alphabet} from "./../../../../node_modules/mykro/src/constant/alphabet.mjs";
 import {m_js_for_each} from "./../../../../node_modules/mykro/src/m/js/for/each.mjs";
 import {list_join} from "./../../../../node_modules/mykro/src/list/join.mjs";
 import {list_size} from "./../../../../node_modules/mykro/src/list/size.mjs";
