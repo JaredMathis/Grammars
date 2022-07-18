@@ -27,7 +27,7 @@ export async function sandbox() {
       if (!await m_js_equals_json(rules[0].left, ["a"])) {
         return true;
       }
-      let max = await g_symbols_max(rules);
+      let {max} = await g_symbols_max(rules);
       let skip = false;
       await m_js_for_range(max, async i => {
         i++;
