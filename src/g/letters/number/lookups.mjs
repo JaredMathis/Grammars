@@ -1,3 +1,4 @@
+import {constant_alphabet_sorted} from "./../../../../node_modules/mykro/src/constant/alphabet/sorted.mjs";
 import {constant_alphabet} from "./../../../../node_modules/mykro/src/constant/alphabet.mjs";
 import {m_js_for_each} from "./../../../../node_modules/mykro/src/m/js/for/each.mjs";
 import {list_join} from "./../../../../node_modules/mykro/src/list/join.mjs";
@@ -9,7 +10,7 @@ import {constant_numbers} from "./../../../../node_modules/mykro/src/constant/nu
 import {m_js_arguments_assert} from "./../../../../node_modules/mykro/src/m/js/arguments/assert.mjs";
 export async function g_letters_number_lookups() {
   await m_js_arguments_assert()(arguments);
-  let letters_as_list = await constant_letters_sorted();
+  let letters_as_list = await constant_alphabet_sorted();
   let numbers = await constant_numbers();
   let numbers_as_list = await m_js_string_to_list(numbers);
   let numbers_without_0 = await list_take(numbers_as_list, await list_index_last(numbers_as_list));
