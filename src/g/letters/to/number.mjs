@@ -12,7 +12,7 @@ export async function g_letters_to_number(s) {
   let numbers = await constant_numbers();
   let numbers_as_list = await m_js_string_to_list(numbers);
   let numbers_without_0 = await list_take(numbers_as_list, await list_index_last(numbers_as_list));
-  let letters_without_last_10 = await list_take(letters_as_list, await list_size(letters_as_list) - await list_size(numbers));
+  let letters_without_last_10 = await list_take(letters_as_list, await list_size(letters_as_list) - await list_size(numbers_as_list));
   console.log(numbers_without_0);
   console.log(letters_without_last_10);
 }
