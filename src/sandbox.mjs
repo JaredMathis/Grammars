@@ -12,7 +12,7 @@ export async function sandbox() {
   console.log(await g_letters_from_number(27));
   await g_generate_rules([{
     left: ["a"],
-    right: ["b"]
+    right: ["a"]
   }], result => console.log(result));
   return;
   let rules = [{
