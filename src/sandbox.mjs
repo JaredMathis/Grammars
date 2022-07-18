@@ -1,3 +1,5 @@
+import {list_map} from "./../node_modules/mykro/src/list/map.mjs";
+import {list_join} from "./../node_modules/mykro/src/list/join.mjs";
 import {m_js_for_range} from "./../node_modules/mykro/src/m/js/for/range.mjs";
 import {g_generate_rules_depth} from "./g/generate/rules/depth.mjs";
 import {m_js_equals_json} from "./../node_modules/mykro/src/m/js/equals/json.mjs";
@@ -16,6 +18,8 @@ import {list_where} from "./../node_modules/mykro/src/list/where.mjs";
 import {list_size} from "./../node_modules/mykro/src/list/size.mjs";
 import {m_js_comment} from "./../node_modules/mykro/src/m/js/comment.mjs";
 import {g_symbols_max} from "./g/symbols/max.mjs";
+import {g_rule_symbols} from "./g/rule/symbols.mjs";
+import {list_contains} from "mykro/src/list/contains.mjs";
 export async function sandbox() {
   Error.stackTraceLimit = Infinity;
   await g_generate_rules_depth([], 1, async rules => {
@@ -24,9 +28,14 @@ export async function sandbox() {
         return true;
       }
       let max = await g_symbols_max(rules);
-      await m_js_for_range(max, i => {
+      let skip = false;
+      await m_js_for_range(max, async i => {
         i++;
         let symbol = await g_letters_from_number(i);
+        let symbols = await list_join(await list_map(rules, async rule => await g_rule_symbols(rule)));
+        if (!await list_where(symbols, async s => await m_js_equals_json(symbol, s))) {
+          skip = true;
+        }
       });
     }
   }, async rules => {
