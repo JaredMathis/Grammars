@@ -14,10 +14,13 @@ import {list_index_of} from "mykro/src/list/index/of.mjs";
 import {list_where} from "mykro/src/list/where.mjs";
 import {list_size} from "mykro/src/list/size.mjs";
 export async function sandbox() {
+  Error.stackTraceLimit = Infinity
   await g_generate_rules_depth([{
     left: ["a"],
     right: ["a"]
-  }], 1, async rules => {
+  }], 2, async rules => {
+    console.log(rules.length);
+    console.log('here')
     return;
     let examples = [["b"], ["b", "b"]];
     let counter_examples = [["c"], ["b", "c"], ["c", "b"], ["c", "c"]];

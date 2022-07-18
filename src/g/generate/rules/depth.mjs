@@ -10,6 +10,6 @@ export async function g_generate_rules_depth(rules, depth, for_each_generated) {
     return;
   }
   await g_generate_rules(rules, async rules => {
-    g_generate_rules_depth(rules, depth - 1, for_each_generated);
+    await g_generate_rules_depth(rules, depth - 1, for_each_generated);
   });
 }
