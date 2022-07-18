@@ -18,6 +18,7 @@ export async function sandbox() {
   Error.stackTraceLimit = Infinity;
   await g_generate_rules_depth([], 1, async rules => {
     if (await list_size(rules) === 1) {
+      return;
       if (!await m_js_equals_json(rules[0].left, ['a'])) {
         return true;
       }
