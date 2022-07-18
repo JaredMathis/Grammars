@@ -19,15 +19,13 @@ export async function g_generate_rules(rules, for_each_generated) {
   let next_2 = [max + 1, max + 2];
   next_2 = await list_map(next_2, async s => await g_letters_from_number(s));
   let possible_symbols = await list_join([symbols, await list_take(next_2, 1)]);
-  console.log({possible_symbols})
-  return;
   await math_choose(possible_symbols, 2, async choice => {
     await generate_with_rule({
       left: [choice[0]],
       right: [choice[1]]
     });
   }, []);
-  possible_symbols = await list_join([symbols_mapped, next_2]);
+  possible_symbols = await list_join([symbols, next_2]);
   await math_choose(possible_symbols, 3, async choice => {
     await generate_with_rule({
       left: [choice[0], choice[1]],
