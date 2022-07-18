@@ -36,7 +36,6 @@ export async function sandbox() {
         if (!await list_contains(symbols, symbol)) {
           skip = true;
         }
-        console.log({symbols, symbol})
       });
       if (skip) return skip;
     }
