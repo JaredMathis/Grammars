@@ -1,3 +1,4 @@
+import {m_js_string_from_list} from "./../../../../node_modules/mykro/src/m/js/string/from/list.mjs";
 import {list_map} from "./../../../../node_modules/mykro/src/list/map.mjs";
 import {m_js_for_each} from "./../../../../node_modules/mykro/src/m/js/for/each.mjs";
 import {list_join} from "./../../../../node_modules/mykro/src/list/join.mjs";
@@ -26,9 +27,8 @@ export async function g_letters_to_number(s) {
   let mapped = await list_map(s_as_list, letter => {
     return a[letter];
   });
-  console.log(s_as_list);
-  console.log(mapped);
-  parseInt();
+  let mapped_as_string = await m_js_string_from_list(mapped);
+  return parseInt(mapped_as_string, 26);
 }
 async function constant_letters_sorted() {
   let letters = await constant_alphabet();
