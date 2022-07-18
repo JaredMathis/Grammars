@@ -46,7 +46,6 @@ async function math_choose(possible_symbols, choices_count, for_each_choice, par
   }
   await m_js_for_each(possible_symbols, async s => {
     let possible_symbols_remaining = await list_without(possible_symbols, [s]);
-    console.log({parent_choice,s})
     await math_choose(possible_symbols_remaining, choices_count - 1, for_each_choice, await list_join([parent_choice, [s]]));
   });
 }
