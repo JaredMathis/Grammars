@@ -34,9 +34,10 @@ export async function sandbox() {
         let symbol = await g_letters_from_number(i);
         let symbols = await list_join(await list_map(rules, async rule => await g_rule_symbols(rule)));
         if (!await list_where(symbols, async s => await m_js_equals_json(symbol, s))) {
-          //skip = true;
+          skip = true;
         }
       });
+      if (skip) return skip;
     }
   }, async rules => {
     console.log(rules);
