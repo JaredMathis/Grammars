@@ -12,17 +12,7 @@ import {m_js_string_is} from "./../../../../node_modules/mykro/src/m/js/string/i
 import {m_js_arguments_assert} from "./../../../../node_modules/mykro/src/m/js/arguments/assert.mjs";
 export async function g_letters_to_number(s) {
   await m_js_arguments_assert(m_js_string_is)(arguments);
-  let letters_as_list = await constant_letters_sorted();
-  let numbers = await constant_numbers();
-  let numbers_as_list = await m_js_string_to_list(numbers);
-  let numbers_without_0 = await list_take(numbers_as_list, await list_index_last(numbers_as_list));
-  let letters_without_last_10 = await list_take(letters_as_list, await list_size(letters_as_list) - await list_size(numbers_as_list));
-  let target = await list_join([numbers_without_0, letters_without_last_10, ["0"]]);
-  let from_letter = {};
-  await m_js_for_each(letters_as_list, (letter, index) => {
-    let other = target[index];
-    from_letter[letter] = other;
-  });
+  let {from_letter} = await g_letters_number_lookups();
   let s_as_list = await m_js_string_to_list(s);
   let mapped = await list_map(s_as_list, letter => {
     return from_letter[letter];
@@ -30,6 +20,23 @@ export async function g_letters_to_number(s) {
   let mapped_as_string = await m_js_string_from_list(mapped);
   return parseInt(mapped_as_string, 26);
 }
+async function g_letters_number_lookups() {
+  let letters_as_list = await constant_letters_sorted();
+  let numbers = await constant_numbers();
+  let numbers_as_list = await m_js_string_to_list(numbers);
+  let numbers_without_0 = await list_take(numbers_as_list, await list_index_last(numbers_as_list));
+  let letters_without_last_10 = await list_take(letters_as_list, await list_size(letters_as_list) - await list_size(numbers_as_list));
+  let target = await list_join([numbers_without_0, letters_without_last_10, ["0"]]);
+  let from_letter = {};
+  let to_letter = {};
+  await m_js_for_each(letters_as_list, (letter, index) => {
+    let other = target[index];
+    from_letter[letter] = other;
+    from_letter[other] = letter;
+  });
+  return {from_letter,to_letter};
+}
+
 async function constant_letters_sorted() {
   let letters = await constant_alphabet();
   let letters_as_list = await m_js_string_to_list(letters);
