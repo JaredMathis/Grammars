@@ -20,7 +20,7 @@ export async function g_letters_number_lookups() {
   await m_js_for_each(letters_as_list, (letter, index) => {
     let other = target[index];
     from_letter[letter] = other;
-    from_letter[other] = letter;
+    to_letter[other] = letter;
   });
   return {
     from_letter,
