@@ -16,6 +16,7 @@ export async function g_generate_rules(rules, for_each_generated) {
   let symbols = await list_unique(await list_join(await list_map(await rules, async rule => await list_join([rule.left, rule.right]))));
   let symbols_mapped = await list_map(symbols, async s => await g_letters_to_number(s));
   let max = Math.max(...symbols_mapped) || 0;
+  console.log(max)
   let next_2 = [max + 1, max + 2];
   next_2 = await list_map(next_2, async s => await g_letters_from_number(s));
   let possible_symbols = await list_join([symbols, await list_take(next_2, 1)]);
