@@ -26,6 +26,7 @@ export async function sandbox() {
       let max = await g_symbols_max(rules);
       await m_js_for_range(max, i => {
         i++;
+        let symbol = await g_letters_from_number(i);
       });
     }
   }, async rules => {
