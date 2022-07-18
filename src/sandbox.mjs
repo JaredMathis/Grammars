@@ -10,8 +10,6 @@ import { g_letters_to_number } from "./g/letters/to/number.mjs";
 import { g_letters_from_number } from "./g/letters/from/number.mjs";
 import { list_index_of } from "mykro/src/list/index/of.mjs";
 export async function sandbox() {
-  console.log(await g_letters_from_number(27));
-
   await g_generate_rules([{
     left: ["a"],
     right: ["a"]
