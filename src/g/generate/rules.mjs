@@ -1,3 +1,4 @@
+import {list_take} from "./../../../node_modules/mykro/src/list/take.mjs";
 import {list_map} from "./../../../node_modules/mykro/src/list/map.mjs";
 import {list_unique} from "./../../../node_modules/mykro/src/list/unique.mjs";
 import {list_remove} from "./../../../node_modules/mykro/src/list/remove.mjs";
@@ -6,20 +7,21 @@ import {m_js_function_is} from "./../../../node_modules/mykro/src/m/js/function/
 import {list_is} from "./../../../node_modules/mykro/src/list/is.mjs";
 import {m_js_arguments_assert} from "./../../../node_modules/mykro/src/m/js/arguments/assert.mjs";
 import {list_join} from "./../../../node_modules/mykro/src/list/join.mjs";
-import { g_letters_to_number } from "../letters/to/number.mjs";
+import {g_letters_to_number} from "./../letters/to/number.mjs";
 export async function g_generate_rules(rules, for_each_generated) {
   await m_js_arguments_assert(list_is, m_js_function_is)(arguments);
   let symbols = await list_unique(await list_join(await list_map(await rules, async rule => await list_join([rule.left, rule.right]))));
-  let symbols_mapped = await list_map(symbols,async s=> await g_letters_to_number(s));
-  console.log(symbols_mapped);
-  return;
-  let possible_symbols = [];
+  let symbols_mapped = await list_map(symbols, async s => await g_letters_to_number(s));
+  let max = Math.max(...symbols_mapped);
+  let next_2 = [max + 1, max + 2];
+  let possible_symbols = await list_join([symbols_mapped, await list_take(next_2, 1)]);
   await math_choose(possible_symbols, 2, async choice => {
     await generate_with_rule({
       left: [choice[0]],
       right: [choice[1]]
     });
   });
+  possible_symbols = await list_join([symbols_mapped, next_2]);
   await math_choose(possible_symbols, 3, async choice => {
     await generate_with_rule({
       left: [choice[0], choice[1]],
