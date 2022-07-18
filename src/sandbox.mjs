@@ -16,13 +16,15 @@ import {list_size} from "./../node_modules/mykro/src/list/size.mjs";
 import {m_js_comment} from "./../node_modules/mykro/src/m/js/comment.mjs";
 export async function sandbox() {
   Error.stackTraceLimit = Infinity;
-  m_js_comment();
-  let _case = {
+  await m_js_comment(`all b's`);
+  let _case;
+  _case = {
     examples_get: () => [["b"], ["b", "b"]],
     counter_examples: [["c"], ["b", "c"], ["c", "b"], ["c", "c"]]
   };
+  await m_js_comment(`start with b`);
   _case = {
-    examples_get: () => [["b"], ["b", "c"], ["b", "c"]],
+    examples_get: () => [["b"], ["b", "c"], ["b", "b"]],
     counter_examples: [["c"], ["c", "b"], ["c", "c"]]
   };
   await g_models(_case.examples_get, _case.counter_examples, rules => {
