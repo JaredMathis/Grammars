@@ -9,7 +9,7 @@ import {m_js_for_each} from "mykro/src/m/js/for/each.mjs";
 import { g_letters_to_number } from "./g/letters/to/number.mjs";
 import { g_letters_from_number } from "./g/letters/from/number.mjs";
 export async function sandbox() {
-  console.log(await g_letters_from_number(1));
+  console.log(await g_letters_from_number(20));
   return
   await g_generate_rules([{
     left: ["a"],
