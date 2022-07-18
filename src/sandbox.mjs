@@ -19,7 +19,6 @@ export async function sandbox() {
       let examples = ["b", "bb"];
       let counter_examples = ["c", "bc", "cb", "cc"];
       await g_explore(["a"], rules, 3, async found => {
-        console.log(found);
         if (await m_js_equals_json(found, ["b"])) {
           console.log(found);
           process.exit();
