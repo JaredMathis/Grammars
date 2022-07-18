@@ -17,7 +17,7 @@ import {m_js_comment} from "./../node_modules/mykro/src/m/js/comment.mjs";
 export async function sandbox() {
   Error.stackTraceLimit = Infinity;
   console.log('hesr')
-  await g_generate_rules_depth([], 2, async rules => console.log(rules));
+  // await g_generate_rules_depth([], 2, async rules => console.log(rules));
   console.log('her')
   return;
 
