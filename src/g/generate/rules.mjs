@@ -22,18 +22,18 @@ export async function g_generate_rules(rules, for_each_generated) {
       left: [choice[0]],
       right: [choice[1]]
     });
-  });
+  }, []);
   possible_symbols = await list_join([symbols_mapped, next_2]);
   await math_choose(possible_symbols, 3, async choice => {
     await generate_with_rule({
       left: [choice[0], choice[1]],
       right: [choice[2]]
-    });
+    }, []);
     await generate_with_rule({
       left: [choice[0]],
       right: [choice[1], choice[2]]
     });
-  });
+  }, []);
   async function generate_with_rule(rule) {
     await list_add(rules, rule);
     await for_each_generated(rules);
@@ -45,7 +45,8 @@ async function math_choose(possible_symbols, choices_count, for_each_choice, par
     await for_each_choice(parent_choice);
   }
   await m_js_for_each(possible_symbols, async s => {
-    possible_symbols_remaining = await list_without(possible_symbols, s);
-    await math_choose(possible_symbols_remaining, choices_count - 1, for_each_choice, await list_join([parent_choice, s]));
+    let possible_symbols_remaining = await list_without(possible_symbols, [s]);
+    console.log({parent_choice,s})
+    await math_choose(possible_symbols_remaining, choices_count - 1, for_each_choice, await list_join([parent_choice, [s]]));
   });
 }
