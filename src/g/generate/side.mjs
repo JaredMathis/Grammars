@@ -18,7 +18,7 @@ export async function g_generate_side(rows, for_each_generated) {
   await m_js_for_range(rows * 2, async s => {
     s++;
     await m_js_for_each(results, async r => {
-      if (!await list_contains(r.pair, s)) {
+      if (!await list_contains(r.pair, s + "")) {
         await list_add(r.other, s);
       }
     });
