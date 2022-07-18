@@ -6,7 +6,9 @@ import {g_rule_apply_at} from "./g/rule/apply/at.mjs";
 import {m_js_arguments_assert} from "./../node_modules/mykro/src/m/js/arguments/assert.mjs";
 import {g_rule_apply_get} from "./g/rule/apply/get.mjs";
 import {m_js_for_each} from "mykro/src/m/js/for/each.mjs";
+import { g_letters_to_number } from "./g/letters/to/number.mjs";
 export async function sandbox() {
+  console.log(await g_letters_to_number("asdf"))
   await g_generate_rules([{
     left: ["a"],
     right: ["a", "a"]
