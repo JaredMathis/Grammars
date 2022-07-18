@@ -16,19 +16,54 @@ import {list_size} from "./../node_modules/mykro/src/list/size.mjs";
 import {m_js_comment} from "./../node_modules/mykro/src/m/js/comment.mjs";
 export async function sandbox() {
   Error.stackTraceLimit = Infinity;
-  await m_js_comment(`all b's`);
-  let _case;
-  _case = {
+  await m_js_comment(`all b's
+  [
+    { left: [ 'a' ], right: [ 'b' ] },
+    { left: [ 'a' ], right: [ 'a', 'a' ] }
+  ]
+  `);
+  let case1 = {
     examples_get: () => [["b"], ["b", "b"]],
     counter_examples: [["c"], ["b", "c"], ["c", "b"], ["c", "c"]]
   };
-  await m_js_comment(`start with b`);
-  _case = {
+  await m_js_comment(`start with b
+  [
+    { left: [ 'a' ], right: [ 'b' ] },
+    { left: [ 'c' ], right: [ 'a' ] },
+    { left: [ 'a' ], right: [ 'b', 'c' ] }
+  ]
+  `);
+  let case2 = {
     examples_get: () => [["b"], ["b", "c"], ["b", "b"]],
     counter_examples: [["c"], ["c", "b"], ["c", "c"]]
   };
-  await g_models(_case.examples_get, _case.counter_examples, rules => {
+  await m_js_comment(`end with b
+  [
+    { left: [ 'a' ], right: [ 'b' ] },
+    { left: [ 'c' ], right: [ 'a' ] },
+    { left: [ 'a' ], right: [ 'c', 'b' ] }
+  ]
+  `);
+  let case3 = {
+    examples_get: () => [["b"], ["c", "b"], ["b", "b"]],
+    counter_examples: [["c"], ["b", "c"], ["c", "c"]]
+  };
+  await m_js_comment(`any combination of b or c
+  [
+    { left: [ 'a' ], right: [ 'b' ] },
+    { left: [ 'a' ], right: [ 'c' ] },
+    { left: [ 'a' ], right: [ 'a', 'a' ] }
+  ]
+  
+  `);
+  let case4 = {
+    examples_get: () => [["b"], ["c", "b"], ["b", "b"], ["c"], ["b", "c"], ["c", "c"]],
+    counter_examples: []
+  };
+  let _case = case4;
+  await g_models(_case.examples_get, _case.counter_examples, 3, 3, rules => {
     console.log(rules);
+    process.exit()
   });
   return;
   let rules = [{
@@ -50,14 +85,14 @@ export async function sandbox() {
     });
   });
 }
-async function g_models(examples_get, counter_examples, for_each_model) {
+async function g_models(examples_get, counter_examples, rules_depth, explore_depth, for_each_model) {
   await g_generate_rules_depth([{
     left: ["a"],
     right: ["a"]
-  }], 2, async rules => {
+  }], rules_depth, async rules => {
     let examples = examples_get();
     let counter_example_found = false;
-    await g_explore(["a"], rules, 3, async found => {
+    await g_explore(["a"], rules, explore_depth, async found => {
       let matches_examples = await list_where(examples, async e => await m_js_equals_json(found, e));
       await m_js_for_each(matches_examples, async e => {
         await list_remove(examples, e);
